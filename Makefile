@@ -6,7 +6,7 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/11/29 16:42:24 by llenotre         ###   ########.fr        #
+#    Updated: 2018/11/29 17:15:13 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC =	check.c\
 		util.c
 HDR = fillit.h
 
-OBJ = $(SRC: .o=.c)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 

@@ -6,14 +6,16 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:49:54 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:05:02 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main(int argc, char **argv)
+#include "fillit.h"
+
+int	main(int argc, char **argv)
 {
-	(void) argc;
-	(void) argv;
+	(void)argc;
+	(void)argv;
 	// TODO
 
 	return (0);

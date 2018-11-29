@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:55:57 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:12:07 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void					ft_lstdel(t_list **list);
 
 void					ft_putstr(const char *str);
 
-void					print_usage();
-void					error();
+void					print_usage(void);
+void					error(void *ptr);
 
 t_list					*read_file(const char *file);
 int						check(t_list *pieces);
