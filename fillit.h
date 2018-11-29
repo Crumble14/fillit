@@ -6,18 +6,28 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 14:25:41 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 15:37:57 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-typedef uint16_t	t_piece;
+# define PIECE_SIZE		20
+# define PIECE			'#'
+# define VOID			'.'
 
-t_piece	*read_file(const char *file);
-int		check(const t_piece *pieces);
+typedef unsigned short	t_piece;
 
-char	*backtrack(const t_piece *pieces, const size_t size);
+void					ft_putstr(const char *str);
+
+void					print_usage();
+void					error();
+
+t_piece					*read_file(const char *file);
+void					prepare(const t_piece *pieces);
+int						check(const t_list *pieces);
+
+char					*backtrack(const t_piece *pieces, const size_t size);
 
 #endif
