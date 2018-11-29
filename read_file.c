@@ -6,29 +6,48 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 15:38:05 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:29:38 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static t_piece *parse_piece(const int fd, const char *buffer, const size_t size)
+static void 	open_file(const char *file)
+{
+	int fd;
+
+	fd = open(file);
+	if (fd < 0)
+		error();
+	return (fd);
+}
+
+static t_piece *parse_piece(const char *buffer)
 {
 	t_piece	*piece;
 	size_t	i;
 
-	piece = malloc(sizeof(piece));
+	if (!(piece = malloc(sizeof(piece))))
+		error();
 	ft_bzero(piece, sizeof(piece));
 	i = 0;
-	while (i < size)
+	while (i < PIECE_SIZE)
 	{
-		if (buffer[i] != PIECE && buffer[i] != VOID)
+		if (i % 4 != 0)
+		{
+			if (buffer[i] != PIECE && buffer[i] != VOID)
+			{
+				free(piece);
+				error();
+			}
+			piece <<= 1;
+			piece |= (buffer[i] == PIECE ? 1 : 0);
+		}
+		else if (buffer[i] != '\n')
 		{
 			free(piece);
 			error();
 		}
-		piece <<= 1;
-		piece |= (buffer[i] == PIECE ? 1 : 0);
 		++i;
 	}
 	return (piece);
@@ -41,10 +60,8 @@ t_list			*read_file(const char *file)
 	int		len;
 	t_list	*lst;
 
-	fd = open(file);
-	if (fd < 0)
-		error();
-	lst = 0;
+	fd = open_file(file);
+	lst = NULL;
 	while ((len = read(fd, buffer, PIECE_SIZE)))
 	{
 		if (len != PIECE_SIZE)
@@ -52,7 +69,7 @@ t_list			*read_file(const char *file)
 			ft_lstdel(lst);
 			error();
 		}
-		ft_lstadd(ft_lstnew(parse_piece(buffer, size), sizeof(t_piece)));
+		ft_lstadd(lst, ft_lstnew(parse_piece(buffer)));
 		if (!read(fd, buffer, 1))
 			break;
 		if (*buff != '\n')
@@ -61,15 +78,6 @@ t_list			*read_file(const char *file)
 			error();
 		}
 	}
+	close(fd);
 	return (lst);
-}
-
-void			prepare(const t_list *pieces)
-{
-	// TODO
-}
-
-int				check(const t_list* pieces)
-{
-	// TODO
 }
