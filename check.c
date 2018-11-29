@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:01:02 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:40:03 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:46:48 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,34 @@
 
 static inline int	is_piece(const t_piece piece, const int x, const int y)
 {
-	return ((x >= 0 && y >= 0) && (piece >> (x + (y * PIECE_COUT))) & 1);
+	return ((x >= 0 && y >= 0) && (piece >> (x + (y * PIECE_COUNT))) & 1);
 }
 
-static int			check_count(const t_piece piece)
+static int			check_count(t_piece piece)
 {
 	size_t i;
 	size_t count;
 
 	i = 0;
 	count = 0;
-	while (i < sizeof(t_piece) * 8)
+	while (i < sizeof(piece) * 8)
 	{
-		if (i & 1)
+		if (piece & 1)
 			++count;
 		if (count > PIECE_COUNT)
 			return (0);
-		i >>= 1;
+		piece >>= 1;
 	}
 	return (count == PIECE_COUNT);
 }
 
 static int			check_piece(const t_piece piece)
 {
+	(void)piece;
+	is_piece(piece, 0, 0);
 	// TODO
+
+	return (0);
 }
 
 int					check(t_list *pieces)

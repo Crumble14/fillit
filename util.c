@@ -6,9 +6,11 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:19:52 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 15:21:07 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:56:41 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fillit.h"
 
 static size_t	ft_strlen(const char *str)
 {

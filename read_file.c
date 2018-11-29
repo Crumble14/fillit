@@ -6,17 +6,17 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:29:38 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/11/29 16:56:27 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void 	open_file(const char *file)
+static int	 	open_file(const char *file)
 {
 	int fd;
 
-	fd = open(file);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error();
 	return (fd);
@@ -29,7 +29,7 @@ static t_piece *parse_piece(const char *buffer)
 
 	if (!(piece = malloc(sizeof(piece))))
 		error();
-	ft_bzero(piece, sizeof(piece));
+	*piece = 0;
 	i = 0;
 	while (i < PIECE_SIZE)
 	{
@@ -40,8 +40,8 @@ static t_piece *parse_piece(const char *buffer)
 				free(piece);
 				error();
 			}
-			piece <<= 1;
-			piece |= (buffer[i] == PIECE ? 1 : 0);
+			*piece <<= 1;
+			*piece |= (buffer[i] == PIECE ? 1 : 0);
 		}
 		else if (buffer[i] != '\n')
 		{
@@ -66,15 +66,15 @@ t_list			*read_file(const char *file)
 	{
 		if (len != PIECE_SIZE)
 		{
-			ft_lstdel(lst);
+			ft_lstdel(&lst);
 			error();
 		}
-		ft_lstadd(lst, ft_lstnew(parse_piece(buffer)));
+		ft_lstadd(&lst, ft_lstnew(parse_piece(buffer)));
 		if (!read(fd, buffer, 1))
 			break;
-		if (*buff != '\n')
+		if (*buffer != '\n')
 		{
-			ft_lstdel(lst);
+			ft_lstdel(&lst);
 			error();
 		}
 	}

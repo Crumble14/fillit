@@ -6,7 +6,7 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/11/29 14:18:26 by llenotre         ###   ########.fr        #
+#    Updated: 2018/11/29 16:42:24 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,12 @@ NAME = fillit
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.c
+SRC =	check.c\
+		error.c\
+		linked_list.c\
+		main.c\
+		read_file.c\
+		util.c
 HDR = fillit.h
 
 OBJ = $(SRC: .o=.c)
