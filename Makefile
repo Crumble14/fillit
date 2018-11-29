@@ -6,7 +6,7 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/11/29 17:15:13 by llenotre         ###   ########.fr        #
+#    Updated: 2018/11/29 17:17:33 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = fillit
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC =	check.c\
+SRC =	backtrack.c\
+		check.c\
 		error.c\
 		linked_list.c\
 		main.c\

@@ -6,32 +6,49 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/11/29 16:53:36 by sbelondr         ###   ########.fr       */
+/*   Updated: 2018/11/29 17:38:39 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char		**ft_init(size_t size)
+static void	free_grid(char **grid, const size_t size)
+{
+	size_t i;
+
+	i = 0;
+	while (i < size)
+	{
+		free((void*)grid[i]);
+		++i;
+	}
+	free((void*)grid);
+}
+
+static char	**alloc_grid(const size_t size)
 {
 	size_t	i;
-	int		j;
-	char	**init;
+	size_t	j;
+	char	**grid;
 
-	if (!(init = (char**)malloc(sizeof(char*) * size + 1)))
+	if (!(grid = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
-	i = -1;
-	while (++i < size)
-		init[i] = (char*)malloc(sizeof(char) * size + 1);
-	i = -1;
-	while (++i < size)
+	i = 0;
+	while (i < size)
 	{
-		j = -1;
-		while (init[i][++j])
-			init[i][j] = '.';
+		if (!(grid[i] = (char*)malloc(sizeof(char) * (size + 1))))
+		{
+			free_grid(grid, i);
+			return (NULL);
+		}
+		j = 0;
+		while (j < size)
+		{
+			grid[i][j] = '.';
+			++j;
+		}
 	}
-	init[i] = 0;
-	return (init);
+	return (grid);
 }
 
 
@@ -67,7 +84,7 @@ int			ft_line_empty(char *line, long piece)
 	return (-1);
 }
 
-int		ft_place(long piece, long **result, size_t size_line)
+int			ft_place(long piece, long **result, size_t size_line)
 {
 	int		line;
 	int		index;
@@ -86,12 +103,12 @@ int		ft_place(long piece, long **result, size_t size_line)
 char		*backtrack(const t_piece *pieces, const size_t size)
 {
 	size_t	num;
-	char	**result;
+	char	**grid;
 
 	(void)pieces;
 	(void)size;
-	if ((result = ft_init(size)) == 0)
-		return (NULL);
+	if (!(grid = alloc_grid(size)))
+		error();
 	num = 0;
 	//ft_place(pieces[num], &result, size);	
 	return (NULL);	
