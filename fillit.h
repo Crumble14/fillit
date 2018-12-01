@@ -18,11 +18,13 @@
 # include <string.h>
 # include <unistd.h>
 
-# define PIECE_SIZE		20
+# define BUFF_SIZE		20
+# define PIECE_LENGTH	4
+# define PIECE_SIZE		16
 # define MAX_PIECES		26
-# define PIECE_COUNT	4
+# define PIECE_BLOCKS	4
 
-# define PIECE			'#'
+# define BLOCK			'#'
 # define VOID			'.'
 
 typedef unsigned short	t_piece;
@@ -38,6 +40,7 @@ void					ft_lstadd(t_list **list, t_list *new);
 void					ft_lstdel(t_list **list);
 
 void					ft_putstr(const char *str);
+void					ft_putgrid(const char *grid);
 
 void					print_usage(void);
 void					error(void *ptr);
@@ -45,8 +48,8 @@ void					error(void *ptr);
 t_list					*read_file(const char *file);
 int						check(t_list *pieces);
 
-void					prepare(t_piece *pieces);
+void					prepare(t_list *pieces);
 
-char					*backtrack(const t_piece *pieces, const size_t size);
+char					*backtrack(const t_list *pieces, const size_t size);
 
 #endif

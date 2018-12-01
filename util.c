@@ -26,3 +26,8 @@ void			ft_putstr(const char *str)
 {
 	write(1, str, ft_strlen(str));
 }
+
+void			ft_putgrid(const char *grid)
+{
+	// TODO
+}

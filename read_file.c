@@ -31,7 +31,7 @@ static t_piece	*parse_piece(const char *buffer)
 		error(NULL);
 	*piece = 0;
 	i = 0;
-	while (i < PIECE_SIZE)
+	while (i < BUFF_SIZE)
 	{
 		if (i % 4 != 0)
 		{
@@ -56,9 +56,9 @@ t_list			*read_file(const char *file)
 
 	fd = open_file(file);
 	lst = NULL;
-	while ((len = read(fd, buffer, PIECE_SIZE)))
+	while ((len = read(fd, buffer, BUFF_SIZE)))
 	{
-		if (len != PIECE_SIZE)
+		if (len != BUFF_SIZE)
 		{
 			ft_lstdel(&lst);
 			error(NULL);

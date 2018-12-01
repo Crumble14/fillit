@@ -14,9 +14,19 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	// TODO
+	t_list	*pieces;
+	size_t	size;
+	char	*grid;
 
+	if (argc != 2)
+		print_usage();
+	pieces = read_file(argv[1]);
+	if (!check(pieces))
+		error();
+	prepare(pieces);
+	size = 2;
+	while (!(grid = backtrack(pieces, size)))
+		++size;
+	ft_putgrid(grid);
 	return (0);
 }

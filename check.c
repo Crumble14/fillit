@@ -12,9 +12,9 @@
 
 #include "fillit.h"
 
-static inline int	is_piece(const t_piece piece, const int x, const int y)
+static inline int	is_block(const t_piece piece, const int x, const int y)
 {
-	return ((x >= 0 && y >= 0) && (piece >> (x + (y * PIECE_COUNT))) & 1);
+	return ((x >= 0 && y >= 0) && (piece >> (x + (y * PIECE_LENGTH))) & 1);
 }
 
 static int			check_count(t_piece piece)
@@ -52,9 +52,8 @@ int					check(t_list *pieces)
 	while (pieces)
 	{
 		++count;
-		if (count > MAX_PIECES)
-			return (0);
-		if (!check_count(*pieces->content) || !check_piece(*pieces->content))
+		if (count > MAX_PIECES || !check_count(*pieces->content)
+			|| !check_piece(*pieces->content))
 			return (0);
 		pieces = pieces->next;
 	}

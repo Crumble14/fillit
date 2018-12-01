@@ -100,13 +100,11 @@ int			ft_place(long piece, long **result, size_t size_line)
 	return (1);
 }
 
-char		*backtrack(const t_piece *pieces, const size_t size)
+char		*backtrack(const t_list *pieces, const size_t size)
 {
 	size_t	num;
 	char	**grid;
 
-	(void)pieces;
-	(void)size;
 	if (!(grid = alloc_grid(size)))
 		error();
 	num = 0;
