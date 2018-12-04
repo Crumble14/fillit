@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:19:52 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 17:58:49 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 18:25:49 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,4 @@ void				ft_putgrid(const char *grid, const size_t size)
 		i += size;
 		ft_putchar('\n');
 	}
-}
-
-char				*ft_strdup(const char *str)
-{
-	size_t	len;
-	char	*buffer;
-	size_t	i;
-
-	len = ft_strlen(str);
-	if (!(buffer = (char*)malloc(str + 1)))
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		buffer[i] = str[i];
-		++i;
-	}
-	buffer[i] = '\0';
-	return (buffer);
 }

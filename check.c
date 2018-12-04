@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:01:02 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 17:44:40 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 18:26:21 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int			check(t_list *pieces)
 	while (pieces)
 	{
 		++count;
-		if (count > MAX_PIECES || !check_count(*pieces->content)
-			|| !check_piece(*pieces->content))
+		if (count > MAX_PIECES || !check_count(pieces->content)
+			|| !check_piece(pieces->content))
 			return (0);
 		pieces = pieces->next;
 	}

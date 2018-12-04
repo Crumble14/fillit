@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 17:56:49 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 18:40:40 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ typedef unsigned short	t_piece;
 
 typedef struct			s_list
 {
-	t_piece			*content;
+	t_piece			content;
 	struct s_list	*next;
 }						t_list;
 
-t_list					*ft_lstnew(t_piece *piece);
+t_list					*ft_lstnew(const t_piece piece);
 void					ft_lstpush(t_list **list, t_list *new);
 void					ft_lstdel(t_list **list);
 
@@ -44,7 +44,7 @@ void					ft_putgrid(const char *grid, const size_t size);
 char					*ft_strdup(const char *str);
 
 void					print_usage(void);
-void					error(void *ptr);
+void					error();
 
 t_list					*read_file(const char *file);
 int						check(t_list *pieces);

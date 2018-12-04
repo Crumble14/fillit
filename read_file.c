@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 14:43:57 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 18:22:29 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,28 @@ static int		open_file(const char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		error(NULL);
+		error();
 	return (fd);
 }
 
-static t_piece	*parse_piece(const char *buffer)
+static t_piece	parse_piece(const char *buffer)
 {
-	t_piece	*piece;
+	t_piece	piece;
 	size_t	i;
 
-	if (!(piece = (t_piece*)malloc(sizeof(piece))))
-		error(NULL);
-	*piece = 0;
+	piece = 0;
 	i = 0;
 	while (i < BUFF_SIZE)
 	{
 		if ((i + 1) % 5 != 0)
 		{
 			if (buffer[i] != BLOCK && buffer[i] != VOID)
-				error(piece);
-			*piece = *piece << 1;
-			*piece |= (buffer[i] == BLOCK ? 1 : 0);
+				error();
+			piece = piece << 1;
+			piece |= (buffer[i] == BLOCK ? 1 : 0);
 		}
 		else if (buffer[i] != '\n')
-			error(piece);
+			error();
 		++i;
 	}
 	return (piece);
@@ -61,7 +59,7 @@ t_list			*read_file(const char *file)
 		if (len != BUFF_SIZE)
 		{
 			ft_lstdel(&lst);
-			error(NULL);
+			error();
 		}
 		ft_lstpush(&lst, ft_lstnew(parse_piece(buffer)));
 		if (!read(fd, buffer, 1))
@@ -69,7 +67,7 @@ t_list			*read_file(const char *file)
 		if (*buffer != '\n')
 		{
 			ft_lstdel(&lst);
-			error(NULL);
+			error();
 		}
 	}
 	close(fd);

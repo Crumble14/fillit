@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 14:49:36 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 14:49:51 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 18:25:04 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static inline int	has_y_void(const t_piece piece)
 
 static inline void	move_left(t_piece *piece)
 {
-	*piece = *piece << 1;
+	*piece <<= 1;
 }
 
 static inline void	move_up(t_piece *piece)
 {
-	*piece = *piece << 4;
+	*piece <<= 4;
 }
 
 void				prepare(t_list *pieces)
@@ -39,10 +39,10 @@ void				prepare(t_list *pieces)
 	l = pieces;
 	while (l)
 	{
-		while (has_x_void(*(l->content)))
-			move_left(l->content);
-		while (has_y_void(*(l->content)))
-			move_up(l->content);
+		while (has_x_void(l->content))
+			move_left(&l->content);
+		while (has_y_void(l->content))
+			move_up(&l->content);
 		l = l->next;
 	}
 }

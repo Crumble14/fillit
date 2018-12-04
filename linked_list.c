@@ -6,13 +6,13 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 14:50:12 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 19:01:21 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_list	*ft_lstnew(t_piece *piece)
+t_list	*ft_lstnew(const t_piece piece)
 {
 	t_list *list;
 
@@ -48,7 +48,6 @@ void	ft_lstdel(t_list **list)
 	l = *list;
 	while (l)
 	{
-		free((void*)l->content);
 		next = l->next;
 		free((void*)l);
 		l = next;
