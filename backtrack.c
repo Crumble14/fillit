@@ -6,135 +6,105 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/04 14:12:06 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:48:55 by sbelondr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char	*alloc_grid(const size_t size)
+char		**ft_init(size_t size_f)
 {
-	char	*grid;
-	size_t	i;
-
-	if (!(grid = (char*)malloc(sizeof(char) * (size * size))))
-		return (NULL);
-	i = 0;
-	while (i < (size * size))
-		grid[i++] = '.';
-	return (grid);
-}
-
-/*int			ft_cnt_line(long piece)
-{
+	char	**init;
+	char	*str;
 	int		i;
 
+	init = (char**)malloc(sizeof(char*) * size_f + 1);
+	str = (char*)malloc(sizeof(char) * size_f + 1);
+	if (init == NULL || str == NULL)
+		exit(0);
 	i = -1;
-	while ((piece % 10))
-		piece /= 10;
-	return (ft_numlen((int)piece));
+	while (++i < (int)size_f)
+		str[i] = '.';
+	str[i] = '\0';
+	i = -1;
+	while (++i < (int)size_f)
+		init[i] = ft_strdup(str);
+	init[++i] = 0;
+	return (init);
 }
 
-int			ft_line_empty(char *line, long piece)
+int			ft_cnt_line(long piece, int line)
+{
+	int		max_line;
+	int		cpt;
+	char	*base;
+
+	cpt = 0;
+	max_line = line + 4;
+	base = ft_convert_base((int)piece, 2);
+	if (ft_strlen(base) < 16)
+		base = ft_chrjoin_start('0', base);
+	while (line < max_line)
+		if (base[line++] == '1')
+			cpt++;
+	return (cpt);
+}
+
+int		ft_insert(char **result, long piece, int index, int index_line)
 {
 	int		i;
 	int		j;
-	int		size;
+	int		line;
+	char	*str;
+	static int	letter;
 
-	i = -1;
-	size = ft_cnt_line(piece);
-	while (line[++i])
+	letter = (letter == 0) ? 'A': letter + 1;
+	line = 0;
+	j = -1;
+	str = ft_convert_base(piece, 2);
+	while (ft_strlen(str) < 16)
+		str = ft_chrjoin_start('0', str);
+	while (line < 16)
 	{
-		j = 0;
-		while (line[i + j] && line[i + j] == '.')
-			j++;
-		if (j >= size)
-			break ;
-		i += j;
+		i = -1;
+		while (++i < 4)
+			if (str[++j] && str[j] != '0')
+				result[index_line][index + i] = letter;
+		index_line++;
+		line += 4;
 	}
-	if (j >= size)
-		return (i);
-	return (-1);
+	return (0);
 }
 
-int			ft_place(long piece, long **result, size_t size_line)
+int		ft_place(long piece, char **result)
 {
 	int		line;
 	int		index;
 
 	line = 0;
 	index = -1;
-	while (result[line] && (index = ft_line_empty(result[line], piece)) < 0)
-		line++;
-	if (index >= 0)
-		ft_insert(result, piece, line, index);
+
+	int		i = -1;
+	while (result[++i])
+		printf("%s\n", result[i]);
+	printf("____________\n\n");
+	if (result[line])
+		ft_line_empty(result, piece);
 	else
-		return (0);
-	return (1);
-}*/
-
-static int	get_location(const t_piece piece, const char *grid,
-	size_t *x, size_t *y)
-{
-	(void)piece;
-	(void)grid;
-	(void)x;
-	(void)y;
-	// TODO
-	return (0);
-}
-
-static int	place(const t_piece piece, char *grid,
-	const size_t x, const size_t y)
-{
-	(void)piece;
-	(void)grid;
-	(void)x;
-	(void)y;
-	// TODO
-	return (0);
-}
-
-static void	remove(const t_piece piece, char *grid,
-	const size_t x, const size_t y)
-{
-	(void)piece;
-	(void)grid;
-	(void)x;
-	(void)y;
-	// TODO
-}
-
-static int	backtrack(char *grid, const size_t size, const t_list *pieces)
-{
-	size_t x;
-	size_t y;
-
-	if (!pieces)
-		return (1);
-	if (!get_location(*pieces->content, grid, &x, &y))
-		return (0);
-	while (pieces)
-	{
-		place(*pieces->content, grid, x, y);
-		if (!backtrack(grid, size, pieces->next))
-			remove(*pieces->content, grid, x, y);
-		pieces = pieces->next;
-	}
+		exit(0);
 	return (1);
 }
 
-char		*solve(const t_list *pieces, const size_t size)
+char		**backtrack(const long *pieces, const size_t size)
 {
-	char	*grid;
+	size_t	num;
+	char	**result;
+	int		i;
 
-	if (!(grid = alloc_grid(size)))
-		error(NULL);
-	if (backtrack(grid, size, pieces))
-		return (grid);
-	else
-	{
-		free((void*)grid);
-		return (NULL);
-	}
+	i = -1;
+	result = ft_init(size);
+	num = -1;
+	while (pieces[++num])// < size)
+		ft_place(pieces[num], result);
+	return (result);
 }
