@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 17:05:02 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 14:44:57 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		print_usage();
-	pieces = read_file(argv[1]);
+	if (!(pieces = read_file(argv[1])))
+		error(NULL);
 	if (!check(pieces))
-		error();
+		error(NULL);
 	prepare(pieces);
 	size = 2;
-	while (!(grid = backtrack(pieces, size)))
+	while (!(grid = solve(pieces, size)))
 		++size;
-	ft_putgrid(grid);
+	ft_putgrid(grid, size);
+	free((void*)grid);
+	ft_lstdel(&pieces);
 	return (0);
 }

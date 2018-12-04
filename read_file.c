@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 17:12:55 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 14:43:57 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static t_piece	*parse_piece(const char *buffer)
 	i = 0;
 	while (i < BUFF_SIZE)
 	{
-		if (i % 4 != 0)
+		if ((i + 1) % 5 != 0)
 		{
-			if (buffer[i] != PIECE && buffer[i] != VOID)
+			if (buffer[i] != BLOCK && buffer[i] != VOID)
 				error(piece);
-			*piece <<= 1;
-			*piece |= (buffer[i] == PIECE ? 1 : 0);
+			*piece = *piece << 1;
+			*piece |= (buffer[i] == BLOCK ? 1 : 0);
 		}
 		else if (buffer[i] != '\n')
 			error(piece);
@@ -63,7 +63,7 @@ t_list			*read_file(const char *file)
 			ft_lstdel(&lst);
 			error(NULL);
 		}
-		ft_lstadd(&lst, ft_lstnew(parse_piece(buffer)));
+		ft_lstpush(&lst, ft_lstnew(parse_piece(buffer)));
 		if (!read(fd, buffer, 1))
 			break ;
 		if (*buffer != '\n')

@@ -6,53 +6,26 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/11/29 17:38:39 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 14:12:06 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static void	free_grid(char **grid, const size_t size)
+static char	*alloc_grid(const size_t size)
 {
-	size_t i;
-
-	i = 0;
-	while (i < size)
-	{
-		free((void*)grid[i]);
-		++i;
-	}
-	free((void*)grid);
-}
-
-static char	**alloc_grid(const size_t size)
-{
+	char	*grid;
 	size_t	i;
-	size_t	j;
-	char	**grid;
 
-	if (!(grid = (char**)malloc(sizeof(char*) * size)))
+	if (!(grid = (char*)malloc(sizeof(char) * (size * size))))
 		return (NULL);
 	i = 0;
-	while (i < size)
-	{
-		if (!(grid[i] = (char*)malloc(sizeof(char) * (size + 1))))
-		{
-			free_grid(grid, i);
-			return (NULL);
-		}
-		j = 0;
-		while (j < size)
-		{
-			grid[i][j] = '.';
-			++j;
-		}
-	}
+	while (i < (size * size))
+		grid[i++] = '.';
 	return (grid);
 }
 
-
-int			ft_cnt_line(long piece)
+/*int			ft_cnt_line(long piece)
 {
 	int		i;
 
@@ -98,16 +71,70 @@ int			ft_place(long piece, long **result, size_t size_line)
 	else
 		return (0);
 	return (1);
+}*/
+
+static int	get_location(const t_piece piece, const char *grid,
+	size_t *x, size_t *y)
+{
+	(void)piece;
+	(void)grid;
+	(void)x;
+	(void)y;
+	// TODO
+	return (0);
 }
 
-char		*backtrack(const t_list *pieces, const size_t size)
+static int	place(const t_piece piece, char *grid,
+	const size_t x, const size_t y)
 {
-	size_t	num;
-	char	**grid;
+	(void)piece;
+	(void)grid;
+	(void)x;
+	(void)y;
+	// TODO
+	return (0);
+}
+
+static void	remove(const t_piece piece, char *grid,
+	const size_t x, const size_t y)
+{
+	(void)piece;
+	(void)grid;
+	(void)x;
+	(void)y;
+	// TODO
+}
+
+static int	backtrack(char *grid, const size_t size, const t_list *pieces)
+{
+	size_t x;
+	size_t y;
+
+	if (!pieces)
+		return (1);
+	if (!get_location(*pieces->content, grid, &x, &y))
+		return (0);
+	while (pieces)
+	{
+		place(*pieces->content, grid, x, y);
+		if (!backtrack(grid, size, pieces->next))
+			remove(*pieces->content, grid, x, y);
+		pieces = pieces->next;
+	}
+	return (1);
+}
+
+char		*solve(const t_list *pieces, const size_t size)
+{
+	char	*grid;
 
 	if (!(grid = alloc_grid(size)))
-		error();
-	num = 0;
-	//ft_place(pieces[num], &result, size);	
-	return (NULL);	
+		error(NULL);
+	if (backtrack(grid, size, pieces))
+		return (grid);
+	else
+	{
+		free((void*)grid);
+		return (NULL);
+	}
 }

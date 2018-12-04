@@ -6,15 +6,15 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 16:01:02 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:46:48 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 15:16:04 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static inline int	is_block(const t_piece piece, const int x, const int y)
+static inline int	is_block(const t_piece piece, const size_t pos)
 {
-	return ((x >= 0 && y >= 0) && (piece >> (x + (y * PIECE_LENGTH))) & 1);
+	return ((piece >> pos) & 1);
 }
 
 static int			check_count(t_piece piece)
@@ -28,20 +28,28 @@ static int			check_count(t_piece piece)
 	{
 		if (piece & 1)
 			++count;
-		if (count > PIECE_COUNT)
+		if (count > PIECE_BLOCKS)
 			return (0);
 		piece >>= 1;
+		++i;
 	}
-	return (count == PIECE_COUNT);
+	return (count == PIECE_BLOCKS);
 }
 
 static int			check_piece(const t_piece piece)
 {
-	(void)piece;
-	is_piece(piece, 0, 0);
-	// TODO
+	size_t i;
 
-	return (0);
+	i = 0;
+	while (i < sizeof(piece) * 8)
+	{
+		if ((piece >> i) & 1)
+			if (!is_block(piece, i + 1) && !is_block(piece, i - 1)
+				&& !is_block(piece, i + 4) && !is_block(piece, i - 4))
+				return (0);
+		++i;
+	}
+	return (1);
 }
 
 int					check(t_list *pieces)

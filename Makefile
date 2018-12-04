@@ -6,7 +6,7 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/11/29 17:17:33 by llenotre         ###   ########.fr        #
+#    Updated: 2018/12/04 14:48:34 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	backtrack.c\
 		error.c\
 		linked_list.c\
 		main.c\
+		prepare.c\
 		read_file.c\
 		util.c
 HDR = fillit.h
@@ -36,7 +37,7 @@ $(NAME): $(OBJ)
 clean:
 	rm -f $(OBJ)
 
-fclean:
+fclean: clean
 	rm -f $(NAME)
 
 re: fclean all

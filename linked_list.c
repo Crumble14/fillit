@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 16:48:21 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 14:50:12 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_list	*ft_lstnew(t_piece *piece)
 	return (list);
 }
 
-void	ft_lstadd(t_list **list, t_list *new)
+void	ft_lstpush(t_list **list, t_list *new)
 {
 	t_list *l;
 
@@ -35,8 +35,9 @@ void	ft_lstadd(t_list **list, t_list *new)
 		return ;
 	}
 	l = *list;
-	*list = new;
-	(*list)->next = l;
+	while (l->next)
+		l = l->next;
+	l->next = new;
 }
 
 void	ft_lstdel(t_list **list)
