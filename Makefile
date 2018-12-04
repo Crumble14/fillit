@@ -12,7 +12,7 @@
 
 NAME = fillit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	backtrack.c\
 		check.c\

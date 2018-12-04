@@ -32,6 +32,7 @@ typedef unsigned short	t_piece;
 typedef struct			s_list
 {
 	t_piece			content;
+	int				placed;
 	struct s_list	*next;
 }						t_list;
 
@@ -51,6 +52,6 @@ int						check(t_list *pieces);
 
 void					prepare(t_list *pieces);
 
-char					*solve(const t_list *pieces, const size_t size);
+char					*solve(t_list *pieces, const size_t size);
 
 #endif

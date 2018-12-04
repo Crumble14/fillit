@@ -14,14 +14,13 @@
 
 void	print_usage(void)
 {
-	ft_putstr("usage: fillit file");
+	ft_putstr("usage: fillit file\n");
 	exit(0);
 }
 
-void	error(void *ptr)
+void	error()
 {
-	if (ptr != NULL)
-		free(ptr);
-	ft_putstr("error");
+	ft_putstr("error\n");
+	*((char*)NULL) = 42;
 	exit(0);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 static char	*alloc_grid(const size_t size)
 {
@@ -25,29 +26,21 @@ static char	*alloc_grid(const size_t size)
 	return (grid);
 }
 
-static int	can_place(t_piece piece, char *grid, const size_t pos)
+static int	can_place(t_piece piece, char *grid, const size_t size,
+	const size_t pos)
 {
-	size_t i;
-
-	i = 0;
-	while (piece)
-	{
-		if ((piece & 1) && (grid[pos + i] != VOID))
-			return (0);
-		piece >>= 1;
-		++i;
-	}
-	return (1);
+	// TODO
 }
 
-static int	find_hole(const t_piece piece, char *grid, const size_t size, size_t *pos)
+static int	find_hole(const t_piece piece, char *grid, const size_t size,
+	size_t *pos)
 {
 	size_t i;
 
 	i = 0;
 	while (i < (size * size))
 	{
-		if (can_place(piece, grid, i))
+		if (can_place(piece, grid, size, i))
 		{
 			*pos = i;
 			return (1);
@@ -57,42 +50,46 @@ static int	find_hole(const t_piece piece, char *grid, const size_t size, size_t 
 	return (0);
 }
 
-static void	place(char *grid, const size_t pos, t_piece piece, const char c)
+static void	place(char *grid, const size_t size, const size_t pos,
+	t_piece piece, const char c)
 {
-	size_t i;
-
-	i = 0;
-	while (piece)
-	{
-		if (piece & 1)
-			grid[pos + i] = c;
-		piece >>= 1;
-		++i;
-	}
+	// TODO
 }
 
-static int	backtrack(const t_list *pieces, char *grid, const size_t size, const char c)
+static int	backtrack(t_list *pieces, char *grid, const size_t size,
+	const char c)
 {
-	const t_list	*p;
-	size_t			pos;
+	t_list	*p;
+	size_t	pos;
 
 	p = pieces;
 	while (p)
 	{
-		if (!find_hole(pieces->content, grid, size, &pos))
-			return (0);
-		place(grid, pos, p->content, c);
-		// TODO Pass a new list without the placed piece
-		if (backtrack(pieces, grid, size, c + 1))
-			return (1);
-		else
-			place(grid, pos, p->content, VOID);
+		if (!p->placed)
+		{
+			if (!find_hole(p->content, grid, size, &pos))
+				return (0);
+			place(grid, size, pos, p->content, c);
+			p->placed = 1;
+			if (!backtrack(p, grid, size, c + 1))
+			{
+				p->placed = 0;
+				place(grid, size, pos, p->content, VOID);
+			}
+		}
 		p = p->next;
 	}
-	return (0);
+	p = pieces;
+	while (p)
+	{
+		if (!p->placed)
+			return (0);
+		p = p->next;
+	}
+	return (1);
 }
 
-char		*solve(const t_list *pieces, const size_t size)
+char		*solve(t_list *pieces, const size_t size)
 {
 	char *grid;
 

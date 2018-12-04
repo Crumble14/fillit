@@ -19,6 +19,7 @@ t_list	*ft_lstnew(const t_piece piece)
 	if (!(list = malloc(sizeof(t_list))))
 		return (NULL);
 	list->content = piece;
+	list->placed = 0;
 	list->next = NULL;
 	return (list);
 }
