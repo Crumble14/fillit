@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 14:43:05 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:56:49 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void					ft_lstdel(t_list **list);
 
 void					ft_putstr(const char *str);
 void					ft_putgrid(const char *grid, const size_t size);
+char					*ft_strdup(const char *str);
 
 void					print_usage(void);
 void					error(void *ptr);
