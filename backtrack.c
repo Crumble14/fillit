@@ -6,7 +6,7 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/05 15:47:09 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 17:42:01 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ static int		can_place(t_piece piece, char *grid, const size_t size,
 	{
 		if (pos + i + j >= size * size)
 			return (0);
-		if ((piece & (1 << 15)) && grid[pos + i + j] != VOID)
+		if ((piece & (1 << 15))
+			&& ((pos + (i % PIECE_SIZE) > (pos / size + 1) * size)
+			|| grid[pos + i + j] != VOID))
 			return (0);
 		piece <<= 1;
 		if ((i + 1) % PIECE_LENGTH == 0)
@@ -95,6 +97,8 @@ static int		backtrack(t_list *pieces, char *grid, const size_t size,
 	t_list	*p;
 	size_t	pos;
 
+	if (pieces == NULL)
+		return (1);
 	p = pieces;
 	while (p)
 	{
@@ -104,22 +108,19 @@ static int		backtrack(t_list *pieces, char *grid, const size_t size,
 				return (0);
 			place(grid, size, pos, p->content, c);
 			p->placed = 1;
-			if (!backtrack(p, grid, size, c + 1))
+			ft_putgrid(grid, size);
+			printf("\n");
+			if (backtrack(p->next, grid, size, c + 1))
+				return (1);
+			else
 			{
-				p->placed = 0;
 				place(grid, size, pos, p->content, VOID);
+				p->placed = 0;
 			}
 		}
 		p = p->next;
 	}
-	p = pieces;
-	while (p)
-	{
-		if (!p->placed)
-			return (0);
-		p = p->next;
-	}
-	return (1);
+	return (0);
 }
 
 char			*solve(t_list *pieces, const size_t size)
@@ -128,7 +129,7 @@ char			*solve(t_list *pieces, const size_t size)
 	t_list	*p;
 
 	if (!(grid = alloc_grid(size)))
-		return (NULL);
+		error();
 	p = pieces;
 	while (p)
 	{

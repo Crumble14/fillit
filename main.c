@@ -6,14 +6,14 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 15:40:04 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 17:41:31 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static size_t	ceil_sqrt(const size_t n)
+/*static size_t	ceil_sqrt(const size_t n)
 {
 	size_t i;
 
@@ -21,9 +21,9 @@ static size_t	ceil_sqrt(const size_t n)
 	while (i * i < n)
 		++i;
 	return (i);
-}
+}*/
 
-int	main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_list	*pieces;
 	size_t	size;
@@ -36,7 +36,8 @@ int	main(int argc, char **argv)
 	if (!check(pieces))
 		error();
 	prepare(pieces);
-	size = ceil_sqrt(ft_lstsize(pieces) * 4);
+	//size = ceil_sqrt(ft_lstsize(pieces) * 4);
+	size = 1;
 	while (!(grid = solve(pieces, size)))
 		++size;
 	ft_putgrid(grid, size);

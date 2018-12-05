@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 15:42:00 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 17:26:43 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void					ft_putgrid(const char *grid, const size_t size);
 char					*ft_strdup(const char *str);
 
 void					print_usage(void);
-void					error();
+void					error(void);
 
 t_list					*read_file(const char *file);
 int						check(t_list *pieces);
