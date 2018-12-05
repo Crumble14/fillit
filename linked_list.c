@@ -6,19 +6,20 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 17:25:36 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 17:58:04 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_list	*ft_lstnew(const t_piece piece)
+t_list	*ft_lstnew(const t_piece piece, const char c)
 {
 	t_list *list;
 
 	if (!(list = malloc(sizeof(t_list))))
 		return (NULL);
 	list->content = piece;
+	list->c = c;
 	list->placed = 0;
 	list->next = NULL;
 	return (list);

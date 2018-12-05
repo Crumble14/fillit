@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 18:22:29 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 17:57:10 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ t_list			*read_file(const char *file)
 	char	buffer[PIECE_SIZE];
 	int		len;
 	t_list	*lst;
+	char	c;
 
 	fd = open_file(file);
 	lst = NULL;
+	c = 'A';
 	while ((len = read(fd, buffer, BUFF_SIZE)))
 	{
 		if (len != BUFF_SIZE)
@@ -61,7 +63,7 @@ t_list			*read_file(const char *file)
 			ft_lstdel(&lst);
 			error();
 		}
-		ft_lstpush(&lst, ft_lstnew(parse_piece(buffer)));
+		ft_lstpush(&lst, ft_lstnew(parse_piece(buffer), c++));
 		if (!read(fd, buffer, 1))
 			break ;
 		if (*buffer != '\n')

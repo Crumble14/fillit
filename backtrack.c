@@ -6,7 +6,7 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/05 17:42:01 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 18:04:42 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ static void		place(char *grid, const size_t size, const size_t pos,
 	}
 }
 
-static int		backtrack(t_list *pieces, char *grid, const size_t size,
-	const char c)
+static int		backtrack(t_list *pieces, char *grid, const size_t size)
 {
 	t_list	*p;
 	size_t	pos;
@@ -104,18 +103,19 @@ static int		backtrack(t_list *pieces, char *grid, const size_t size,
 	{
 		if (!p->placed)
 		{
-			if (!find_hole(p->content, grid, size, &pos))
-				return (0);
-			place(grid, size, pos, p->content, c);
-			p->placed = 1;
-			ft_putgrid(grid, size);
-			printf("\n");
-			if (backtrack(p->next, grid, size, c + 1))
-				return (1);
-			else
+			if (find_hole(p->content, grid, size, &pos))
 			{
-				place(grid, size, pos, p->content, VOID);
-				p->placed = 0;
+				place(grid, size, pos, p->content, p->c);
+				p->placed = 1;
+				ft_putgrid(grid, size);
+				printf("\n");
+				if (backtrack(p, grid, size))
+					return (1);
+				else
+				{
+					place(grid, size, pos, p->content, VOID);
+					p->placed = 0;
+				}
 			}
 		}
 		p = p->next;
@@ -136,7 +136,7 @@ char			*solve(t_list *pieces, const size_t size)
 		p->placed = 0;
 		p = p->next;
 	}
-	if (backtrack(pieces, grid, size, 'A'))
+	if (backtrack(pieces, grid, size))
 		return (grid);
 	else
 	{
