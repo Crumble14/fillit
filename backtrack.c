@@ -6,7 +6,7 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/05 18:04:42 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 18:55:16 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,31 +96,35 @@ static int		backtrack(t_list *pieces, char *grid, const size_t size)
 	t_list	*p;
 	size_t	pos;
 
-	if (pieces == NULL)
-		return (1);
 	p = pieces;
 	while (p)
 	{
 		if (!p->placed)
 		{
-			if (find_hole(p->content, grid, size, &pos))
+			if (!find_hole(p->content, grid, size, &pos))
+				return (0);
+			place(grid, size, pos, p->content, p->c);
+			p->placed = 1;
+			ft_putgrid(grid, size);
+			printf("\n");
+			if (backtrack(p, grid, size))
+				return (1);
+			else
 			{
-				place(grid, size, pos, p->content, p->c);
-				p->placed = 1;
-				ft_putgrid(grid, size);
-				printf("\n");
-				if (backtrack(p, grid, size))
-					return (1);
-				else
-				{
-					place(grid, size, pos, p->content, VOID);
-					p->placed = 0;
-				}
+				place(grid, size, pos, p->content, VOID);
+				p->placed = 0;
 			}
 		}
 		p = p->next;
 	}
-	return (0);
+	p = pieces;
+	while (p)
+	{
+		if (!p->placed)
+			return (0);
+		p = p->next;
+	}
+	return (1);
 }
 
 char			*solve(t_list *pieces, const size_t size)
