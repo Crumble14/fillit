@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 18:40:40 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 15:42:00 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct			s_list
 t_list					*ft_lstnew(const t_piece piece);
 void					ft_lstpush(t_list **list, t_list *new);
 void					ft_lstdel(t_list **list);
+size_t					ft_lstsize(const t_list *list);
 
 void					ft_putstr(const char *str);
 void					ft_putgrid(const char *grid, const size_t size);

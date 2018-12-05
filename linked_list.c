@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/04 19:01:21 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 15:42:43 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,19 @@ void	ft_lstdel(t_list **list)
 		l = next;
 	}
 	*list = NULL;
+}
+
+size_t	ft_lstsize(const t_list *list)
+{
+	size_t n;
+
+	if (list == NULL)
+		return (0);
+	n = 0;
+	while (list)
+	{
+		++n;
+		list = list->next;
+	}
+	return (n);
 }

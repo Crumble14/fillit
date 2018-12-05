@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:16:52 by llenotre          #+#    #+#             */
-/*   Updated: 2018/11/29 17:13:13 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 14:29:26 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	print_usage(void)
 void	error()
 {
 	ft_putstr("error\n");
-	*((char*)NULL) = 42;
 	exit(0);
 }

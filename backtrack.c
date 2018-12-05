@@ -6,14 +6,14 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/04 19:01:09 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/05 15:47:09 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static char	*alloc_grid(const size_t size)
+static char		*alloc_grid(const size_t size)
 {
 	char	*grid;
 	size_t	i;
@@ -26,13 +26,31 @@ static char	*alloc_grid(const size_t size)
 	return (grid);
 }
 
-static int	can_place(t_piece piece, char *grid, const size_t size,
+static int		can_place(t_piece piece, char *grid, const size_t size,
 	const size_t pos)
 {
-	// TODO
+	size_t offset;
+	size_t i;
+	size_t j;
+
+	offset = size - PIECE_LENGTH;
+	i = 0;
+	j = 0;
+	while (piece)
+	{
+		if (pos + i + j >= size * size)
+			return (0);
+		if ((piece & (1 << 15)) && grid[pos + i + j] != VOID)
+			return (0);
+		piece <<= 1;
+		if ((i + 1) % PIECE_LENGTH == 0)
+			j += offset;
+		++i;
+	}
+	return (1);
 }
 
-static int	find_hole(const t_piece piece, char *grid, const size_t size,
+static int		find_hole(const t_piece piece, char *grid, const size_t size,
 	size_t *pos)
 {
 	size_t i;
@@ -50,13 +68,28 @@ static int	find_hole(const t_piece piece, char *grid, const size_t size,
 	return (0);
 }
 
-static void	place(char *grid, const size_t size, const size_t pos,
+static void		place(char *grid, const size_t size, const size_t pos,
 	t_piece piece, const char c)
 {
-	// TODO
+	size_t offset;
+	size_t i;
+	size_t j;
+
+	offset = size - PIECE_LENGTH;
+	i = 0;
+	j = 0;
+	while (piece)
+	{
+		if (piece & (1 << 15))
+			grid[pos + i + j] = c;
+		piece <<= 1;
+		if ((i + 1) % PIECE_LENGTH == 0)
+			j += offset;
+		++i;
+	}
 }
 
-static int	backtrack(t_list *pieces, char *grid, const size_t size,
+static int		backtrack(t_list *pieces, char *grid, const size_t size,
 	const char c)
 {
 	t_list	*p;
@@ -89,12 +122,19 @@ static int	backtrack(t_list *pieces, char *grid, const size_t size,
 	return (1);
 }
 
-char		*solve(t_list *pieces, const size_t size)
+char			*solve(t_list *pieces, const size_t size)
 {
-	char *grid;
+	char	*grid;
+	t_list	*p;
 
 	if (!(grid = alloc_grid(size)))
 		return (NULL);
+	p = pieces;
+	while (p)
+	{
+		p->placed = 0;
+		p = p->next;
+	}
 	if (backtrack(pieces, grid, size, 'A'))
 		return (grid);
 	else
