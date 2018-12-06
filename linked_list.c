@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 17:58:04 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:54:25 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_list	*ft_lstnew(const t_piece piece, const char c)
 		return (NULL);
 	list->content = piece;
 	list->c = c;
-	list->placed = 0;
 	list->next = NULL;
 	return (list);
 }
