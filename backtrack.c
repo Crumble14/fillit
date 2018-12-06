@@ -6,12 +6,11 @@
 /*   By: sbelondr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:29:10 by sbelondr          #+#    #+#             */
-/*   Updated: 2018/12/06 13:40:19 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:03:50 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 static void		free_grid(char **grid, const size_t size)
 {
@@ -57,8 +56,8 @@ static int		can_place(t_piece piece, char **grid, const size_t size,
 	while (piece)
 	{
 		if ((piece & 32768)
-			&& (pos.x + p.x >= size || pos.y + p.y >= size
-				|| grid[pos.x + p.x][pos.y + p.y] != VOID))
+			&& (pos.y + p.y >= size || pos.x + p.x >= size
+				|| grid[pos.y + p.y][pos.x + p.x] != VOID))
 			return (0);
 		piece <<= 1;
 		++p.x;
@@ -99,7 +98,7 @@ static void		place(char **grid, const t_pos pos, t_piece piece,
 	while (piece)
 	{
 		if (piece & 32768)
-			grid[pos.x + p.x][pos.y + p.y] = c;
+			grid[pos.y + p.y][pos.x + p.x] = c;
 		piece <<= 1;
 		++p.x;
 		if (p.x >= PIECE_LENGTH)
@@ -124,8 +123,6 @@ static int		backtrack(char **grid, const size_t size, t_list *pieces)
 				return (0);
 			place(grid, pos, p->content, p->c);
 			p->placed = 1;
-			ft_putgrid(grid, size);
-			printf("\n");
 			if (backtrack(grid, size, pieces))
 				return (1);
 			else

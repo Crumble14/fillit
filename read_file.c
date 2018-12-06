@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 17:57:10 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:14:45 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_piece	parse_piece(const char *buffer)
 t_list			*read_file(const char *file)
 {
 	int		fd;
-	char	buffer[PIECE_SIZE];
+	char	buffer[BUFF_SIZE];
 	int		len;
 	t_list	*lst;
 	char	c;
