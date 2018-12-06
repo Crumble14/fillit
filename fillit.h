@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 13:29:29 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:28:57 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ t_list					*read_file(const char *file);
 int						check(t_list *pieces);
 
 void					prepare(t_list *pieces);
+
+void					free_grid(char **grid, const size_t size);
+char					**alloc_grid(const size_t size);
+
+
+int						can_place(t_piece piece, char **grid,
+	const size_t size, const t_pos pos);
+int						find_hole(const t_piece piece, char **grid,
+	const size_t size, t_pos *pos);
+void					place(char **grid, const t_pos pos, t_piece piece,
+	const char c);
 
 char					**solve(t_list *pieces, const size_t size);
 

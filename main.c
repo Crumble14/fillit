@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 13:29:52 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:23:39 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				main(int argc, char **argv)
 	while (!(grid = solve(pieces, size)))
 		++size;
 	ft_putgrid(grid, size);
-	free((void*)grid);
+	free_grid(grid, size);
 	ft_lstdel(&pieces);
 	return (0);
 }

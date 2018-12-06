@@ -6,7 +6,7 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/12/04 18:23:00 by llenotre         ###   ########.fr        #
+#    Updated: 2018/12/06 14:36:14 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC =	backtrack.c\
 		check.c\
 		error.c\
+		grid.c\
 		linked_list.c\
 		main.c\
+		place.c\
 		prepare.c\
 		read_file.c\
 		util.c
