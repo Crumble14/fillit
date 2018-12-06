@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 17:53:02 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 13:29:52 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				main(int argc, char **argv)
 {
 	t_list	*pieces;
 	size_t	size;
-	char	*grid;
+	char	**grid;
 
 	if (argc != 2)
 		print_usage();

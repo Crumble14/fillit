@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/05 17:57:39 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 13:29:29 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,19 @@ typedef struct			s_list
 	struct s_list	*next;
 }						t_list;
 
+typedef struct			s_pos
+{
+	size_t x;
+	size_t y;
+}						t_pos;
+
 t_list					*ft_lstnew(const t_piece piece, const char c);
 void					ft_lstpush(t_list **list, t_list *new);
 void					ft_lstdel(t_list **list);
 size_t					ft_lstsize(const t_list *list);
 
 void					ft_putstr(const char *str);
-void					ft_putgrid(const char *grid, const size_t size);
-char					*ft_strdup(const char *str);
+void					ft_putgrid(char **grid, const size_t size);
 
 void					print_usage(void);
 void					error(void);
@@ -54,6 +59,6 @@ int						check(t_list *pieces);
 
 void					prepare(t_list *pieces);
 
-char					*solve(t_list *pieces, const size_t size);
+char					**solve(t_list *pieces, const size_t size);
 
 #endif
