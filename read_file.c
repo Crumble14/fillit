@@ -6,23 +6,19 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:27:43 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 14:14:45 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:47:46 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int		open_file(const char *file)
+static inline void	err(t_list **lst)
 {
-	int fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		error();
-	return (fd);
+	ft_lstdel(lst);
+	error();
 }
 
-static t_piece	parse_piece(const char *buffer)
+static t_piece		parse_piece(const char *buffer)
 {
 	t_piece	piece;
 	size_t	i;
@@ -45,33 +41,30 @@ static t_piece	parse_piece(const char *buffer)
 	return (piece);
 }
 
-t_list			*read_file(const char *file)
+int					read_file(const int fd, t_list **lst)
 {
-	int		fd;
 	char	buffer[BUFF_SIZE];
 	int		len;
-	t_list	*lst;
 	char	c;
+	int		end;
 
-	fd = open_file(file);
-	lst = NULL;
 	c = 'A';
+	end = 0;
 	while ((len = read(fd, buffer, BUFF_SIZE)))
 	{
 		if (len != BUFF_SIZE)
-		{
-			ft_lstdel(&lst);
-			error();
-		}
-		ft_lstpush(&lst, ft_lstnew(parse_piece(buffer), c++));
+			err(lst);
+		ft_lstpush(lst, ft_lstnew(parse_piece(buffer), c++));
 		if (!read(fd, buffer, 1))
-			break ;
-		if (*buffer != '\n')
 		{
-			ft_lstdel(&lst);
-			error();
+			end = 1;
+			break ;
 		}
+		if (*buffer != '\n')
+			err(lst);
 	}
+	if (!end)
+		err(lst);
 	close(fd);
-	return (lst);
+	return (lst != NULL);
 }

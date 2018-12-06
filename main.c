@@ -6,12 +6,21 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:17:12 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 14:23:39 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:47:43 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
+
+static int		open_file(const char *file)
+{
+	int fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error();
+	return (fd);
+}
 
 static size_t	ceil_sqrt(const size_t n)
 {
@@ -29,9 +38,10 @@ int				main(int argc, char **argv)
 	size_t	size;
 	char	**grid;
 
+	pieces = NULL;
 	if (argc != 2)
 		print_usage();
-	if (!(pieces = read_file(argv[1])))
+	if (!read_file(open_file(argv[1]), &pieces))
 		error();
 	if (!check(pieces))
 		error();

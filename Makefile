@@ -6,13 +6,13 @@
 #    By: llenotre <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/29 14:13:49 by llenotre          #+#    #+#              #
-#    Updated: 2018/12/06 14:36:14 by llenotre         ###   ########.fr        #
+#    Updated: 2018/12/06 15:48:24 by llenotre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRC =	backtrack.c\
 		check.c\

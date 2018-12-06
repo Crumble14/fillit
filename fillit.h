@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 14:18:30 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 14:53:43 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:16:59 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ void					ft_putgrid(char **grid, const size_t size);
 void					print_usage(void);
 void					error(void);
 
-t_list					*read_file(const char *file);
+int						read_file(const int fd, t_list **lst);
 int						check(t_list *pieces);
 
 void					prepare(t_list *pieces);
 
 void					free_grid(char **grid, const size_t size);
 char					**alloc_grid(const size_t size);
-
 
 int						can_place(t_piece piece, char **grid,
 	const size_t size, const t_pos pos);

@@ -6,7 +6,7 @@
 /*   By: llenotre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:42:19 by llenotre          #+#    #+#             */
-/*   Updated: 2018/12/06 14:54:25 by llenotre         ###   ########.fr       */
+/*   Updated: 2018/12/06 15:47:42 by llenotre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_lstdel(t_list **list)
 	t_list *l;
 	t_list *next;
 
+	if (list == NULL || *list == NULL)
+		return ;
 	l = *list;
 	while (l)
 	{
