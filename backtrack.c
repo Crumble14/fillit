@@ -57,8 +57,8 @@ static int		can_place(t_piece piece, char **grid, const size_t size,
 	while (piece)
 	{
 		if ((piece & 32768)
-			&& (grid[pos.x + p.x][pos.y + p.y] != VOID
-				|| pos.x + p.x >= size || pos.y + p.y >= size))
+			&& (pos.x + p.x >= size || pos.y + p.y >= size
+				|| grid[pos.x + p.x][pos.y + p.y] != VOID))
 			return (0);
 		piece <<= 1;
 		++p.x;
@@ -126,7 +126,7 @@ static int		backtrack(char **grid, const size_t size, t_list *pieces)
 			p->placed = 1;
 			ft_putgrid(grid, size);
 			printf("\n");
-			if (backtrack(grid, size, p))
+			if (backtrack(grid, size, pieces))
 				return (1);
 			else
 			{
